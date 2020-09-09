@@ -24,6 +24,22 @@
         <url-pattern>*.do</url-pattern>
         <url-pattern>*.jsp</url-pattern>
     </filter-mapping>
+
+    <!--spring监听器-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:applicationContext.xml</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+
+<!--        业务监听器-->
+    <listener>
+        <listener-class>com.chen.crm.filter.SysteminitListener</listener-class>
+    </listener>
+    
     <!--配置中央调度器-->
     <servlet>
         <servlet-name>dispatcherServlet</servlet-name>
@@ -38,14 +54,6 @@
         <servlet-name>dispatcherServlet</servlet-name>
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
-    <!--spring监听器-->
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:applicationContext.xml</param-value>
-    </context-param>
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
 
     <!--字符集-->
     <filter>
