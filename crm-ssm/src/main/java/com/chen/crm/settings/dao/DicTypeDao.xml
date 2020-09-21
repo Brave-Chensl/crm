@@ -5,7 +5,7 @@
 <mapper namespace="com.chen.crm.settings.dao.DicTypeDao">
 
     <select id="getDicTypeList" resultType="com.chen.crm.settings.domain.DicType">
-        select * from tbl_Dic_Type
+        select * from tbl_dic_type
     </select>
 
 </mapper>

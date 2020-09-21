@@ -17,9 +17,31 @@
 <script type="text/javascript">
 
 	$(function(){
-		
-		
-		
+		//页面加载完毕，查询出所有交易
+		$.ajax({
+			url:"tran/select.do",
+			type:"get",
+			dataType:"json",
+			success:function (data) {
+				var html="";
+				$.each(data,function (i,n) {
+					html+=' <tr class="active">' +
+							'     <td><input type="checkbox" /></td>' +
+							'     <td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href=\'tran/detail.do?id='+n.id+'\';">'+n.customerId+'-'+n.name+'</a></td>' +
+							'     <td>'+n.customerId+'</td> '+
+							'     <td>'+n.stage+'</td>' +
+							'     <td>'+n.type+'</td>' +
+							'     <td>'+n.owner+'</td>' +
+							'     <td>'+n.source+'</td>' +
+							'     <td>'+n.contactsId+'</td>' +
+							' </tr>'
+				})
+			$("#tranTbody").html(html)
+			}
+		})
+
+
+
 	});
 	
 </script>
@@ -152,7 +174,7 @@
 							<td>联系人名称</td>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="tranTbody">
 						<tr>
 							<td><input type="checkbox" /></td>
 							<td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='workbench/transaction/detail.jsp';">动力节点-交易01</a></td>
@@ -163,16 +185,7 @@
 							<td>广告</td>
 							<td>李四</td>
 						</tr>
-                        <tr class="active">
-                            <td><input type="checkbox" /></td>
-                            <td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='workbench/transaction/detail.jsp';">动力节点-交易01</a></td>
-                            <td>动力节点</td>
-                            <td>谈判/复审</td>
-                            <td>新业务</td>
-                            <td>zhangsan</td>
-                            <td>广告</td>
-                            <td>李四</td>
-                        </tr>
+
 					</tbody>
 				</table>
 			</div>

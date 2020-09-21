@@ -13,9 +13,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class SysteminitListener implements ServletContextListener {
 
@@ -42,6 +40,21 @@ public class SysteminitListener implements ServletContextListener {
         for (String key:set) {
             application.setAttribute(key,stringListMap.get(key));
         }
+
+        //解析Stage2Possibility.properties属性文件
+        Map<String,String> pMap = new HashMap<String,String>();
+
+        ResourceBundle rb = ResourceBundle.getBundle("Stage2Possibility");
+        Enumeration<String> keys =  rb.getKeys();
+            while (keys.hasMoreElements()){
+                //取出每一个key
+               String key =  keys.nextElement();//迭代器比for循环快，数据量小使用for循环，数据量大使用迭代器效率高
+                //取出每一个value
+                String value = rb.getString(key);
+                //把数据保存到缓存中
+                pMap.put(key,value);
+            }
+            application.setAttribute("pMap",pMap);
 
     }
 

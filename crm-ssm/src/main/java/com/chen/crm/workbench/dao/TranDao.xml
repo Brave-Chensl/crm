@@ -42,6 +42,80 @@
         #{nextContactTime}
     )
 </insert>
+    <select id="select" resultType="com.chen.crm.workbench.domain.Tran">
+        select
+        t.id,
+        t.owner,
+        t.money,
+        t.name,
+        t.expectedDate,
+        cus.name as customerId,
+        t.stage,
+        t.type,
+        t.source,
+        t.activityId,
+        con.fullname as contactsId,
+        t.createBy,
+        t.createTime,
+        t.editBy,
+        t.editTime,
+        t.description,
+        t.contactSummary,
+        t.nextContactTime
+
+        from tbl_tran t
+        join tbl_customer cus on t.customerId=cus.id
+        join tbl_contacts con on t.contactsId=con.id
+
+    </select>
+
+    <select id="selectDetailById" resultType="com.chen.crm.workbench.domain.Tran">
+        select
+         t.id,
+        u.name as owner,
+        t.money,
+        t.name,
+        t.expectedDate,
+        cus.name as customerId,
+        t.stage,
+        t.type,
+        t.source,
+        a.name as activityId,
+        con.fullname as contactsId,
+        t.createBy,
+        t.createTime,
+        t.editBy,
+        t.editTime,
+        t.description,
+        t.contactSummary,
+        t.nextContactTime
+
+        from tbl_tran t
+         join tbl_customer cus on t.customerId=cus.id
+       left join tbl_contacts con on t.contactsId=con.id
+        join tbl_user u on t.owner = u.id
+       left join tbl_activity a on t.activityId=a.id
+
+         where t.id=#{id}
+    </select>
+
+    <update id="changeStage" >
+        update tbl_tran set stage = #{stage},editBy=#{editBy},editTime=#{editTime}
+        where id=#{id}
+    </update>
+
+    <select id="getCount" resultType="int">
+        select count(*) from tbl_tran
+    </select>
+
+    <select id="getEcharts" resultType="Map">
+    select
+    stage as name,count(*) as value
+
+    from tbl_tran
+
+    group by stage
+    </select>
 </mapper>
 
 
